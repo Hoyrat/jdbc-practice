@@ -62,6 +62,5 @@ public class POSTMethod {
         //printing the id
         System.out.println(response.path("data.id").toString());
 
-
     }
 }
