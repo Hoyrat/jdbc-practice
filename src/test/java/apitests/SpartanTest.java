@@ -47,12 +47,6 @@ public class SpartanTest {
     And response Content type must be json
     And body should contains Orion
       */
-/* Given accept type applicaton/json
-        when user send GET request to /api/spartans end point
-        Then status code must be 200
-        And Response Content type must be Json
-        And body should contains Orion
-     */
 
     @Test
     public void viewSpartanTest2(){

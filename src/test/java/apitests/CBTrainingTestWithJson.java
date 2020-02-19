@@ -25,7 +25,7 @@ public class CBTrainingTestWithJson {
 
         //how to assign response body to JsonPath object
         JsonPath json=response.jsonPath();
-        //get rhe values from json object
+        //get the values from json object
         String firstName=json.getString("students.firstName[0]");
         System.out.println("first name: "+firstName);
 

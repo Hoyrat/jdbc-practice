@@ -7,6 +7,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utilities.ConfigurationReader;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.restassured.RestAssured.*;
 import static org.testng.Assert.*;
 
@@ -35,6 +38,35 @@ public class POSTMethod {
 
     @Test
     public void PostNewSpartan(){
+        //we will only change the way of sending body part
+
+        //3. yöntem with POJO
+        Spartan spartanEU=new Spartan();
+        spartanEU.setGender("Female");
+        spartanEU.setName("Jasmine");
+        spartanEU.setPhone(4321232123L);
+
+        Response response = given().accept(ContentType.JSON).
+                and().contentType(ContentType.JSON)
+                .and().body(spartanEU).when().post("/spartans");
+
+
+        //2. yöntem: here we use MAP
+        /*
+        Map<String,Object> requestMap = new HashMap<>();
+        //adding the values that we want to post
+        requestMap.put("gender","Male");
+        requestMap.put("name","MikeEUMAP");
+        requestMap.put("phone",5478783575L);
+
+        Response response = given().accept(ContentType.JSON).
+                and().contentType(ContentType.JSON)
+                .and().body(requestMap).when().post("/spartans");
+
+
+
+        1. yöntem asagidaki yöntem give body , but not recommend
+
         Response response = given().accept(ContentType.JSON).
                 and().contentType(ContentType.JSON)
                 .and().body("{\n" +
@@ -42,6 +74,8 @@ public class POSTMethod {
                         "  \"name\": \"MikeEU\",\n" +
                         "  \"phone\": 5478783575\n" +
                         "}").when().post("/spartans");
+
+         */
 
         //response validations
         assertEquals(response.statusCode(),201);
@@ -56,11 +90,17 @@ public class POSTMethod {
         String gender = response.path("data.gender");
         long phone = response.path("data.phone");
 
-        assertEquals(name,"MikeEU");
-        assertEquals(gender,"Male");
-        assertEquals(phone,5478783575l);
+        assertEquals(name,"Jasmine");
+        assertEquals(gender,"Female");
+        assertEquals(phone,4321232123L);
         //printing the id
         System.out.println(response.path("data.id").toString());
+        int idFromPost = response.path("data.id");
 
+        System.out.println("-----------END OF POST REQUEST--------------");
+        //after post I want to send get request to new spartan
+        given().pathParam("id",idFromPost)
+                .when().get("/spartans/{id}")
+                .then().assertThat().statusCode(200).log().all();
     }
 }

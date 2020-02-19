@@ -36,7 +36,6 @@ public class POJO_deserialize {
         assertEquals(spartan15.getName(),"Meta");
         assertEquals(spartan15.getGender(),"Female");
         assertEquals(spartan15.getPhone(),new Long(1938695106));
-
     }
 
     @Test
@@ -61,9 +60,7 @@ public class POJO_deserialize {
         for (Item item : regionList) {
             System.out.println(item.getRegionName());
         }
-
-
-        }
+    }
    //asagidaki örnekte API kullanilmadi, sadeec bir file/input kullandik
     //only json to java object örnegi. with API we use as() method-->as(Region.class);
     @Test
